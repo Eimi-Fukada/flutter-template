@@ -17,8 +17,8 @@ jobs:
     - run: flutter config --enable-windows-desktop
     - run: flutter pub get
     - run: flutter build windows
-    - run: dir build/windows/runner/Release
+    - run: dir build\windows\x64\runner\Release
     - uses: actions/upload-artifact@v3  # 这里从 v2 更新到了 v3
       with:
         name: windows-build
-        path: build/windows/runner/Release
+        path: build\windows\x64\runner\Release
