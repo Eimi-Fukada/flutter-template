@@ -62,9 +62,12 @@ flutter:
   uses-material-design: true
   generate: true
 
-    # 确保这部分存在
-  windows:
-    generate: true
+  # 确保这部分存在
+  plugins:
+    # 这表明项目支持 Windows 平台
+    platforms:
+      windows:
+        pluginClass: none
 
   # To add assets to your application, add an assets section, like this:
   # assets:
