@@ -1,24 +1,46 @@
 name: Windows Build
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: '请选择分支构建'
+        required: true
+        type: choice  # 使用选择框
+        options:
+          - 'main'      # 默认选项
+          - 'dev'       # 其他选项
+        default: 'main'  # 默认选项为 main
 
 jobs:
   build:
     runs-on: windows-latest
+
     steps:
-    - uses: actions/checkout@v3
-    - uses: subosito/flutter-action@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.inputs.branch }}  # 使用选择的分支
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
       with:
         channel: 'stable'
-    - run: flutter config --enable-windows-desktop
-    - run: flutter pub get
-    - run: flutter build windows
-    - run: dir build\windows\x64\runner\Release
-    - uses: actions/upload-artifact@v3  # 这里从 v2 更新到了 v3
+
+    - name: Configure Flutter for Windows
+      run: flutter config --enable-windows-desktop
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Build Windows application
+      run: flutter build windows
+
+    - name: List build output
+      run: dir build\windows\x64\runner\Release
+
+    - name: Upload Windows build artifact
+      uses: actions/upload-artifact@v3
       with:
         name: windows-build
         path: build\windows\x64\runner\Release
