@@ -1,0 +1,18 @@
+{
+  "organization": "grace",
+  "language": "flutter",
+  "needJumpers": false,
+  "jumpersServerAddress": "",
+  "jumpersServerHost": 22,
+  "jumpersServerUsername": "",
+  "jumpersServerPassword": "",
+  "serverAddress": "",
+  "serverHost": 22,
+  "serverUsername": "",
+  "serverPassword": "",
+  "serverUploadPath": "",
+  "env": "dev",
+  "buildCommand": "yarn build",
+  "buildPath": "dist",
+  "version": "1.0.0"
+}
