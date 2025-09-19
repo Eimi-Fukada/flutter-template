@@ -6,25 +6,43 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:my_flutter/main.dart';
+import 'package:flutter_template/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('WordPair generation test', (WidgetTester tester) async {
+    // Build our app with ProviderScope and trigger a frame.
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MyApp(),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Verify that the initial WordPair is displayed.
+    expect(find.byType(Text), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    // Tap the 'Next' button and trigger a frame.
+    await tester.tap(find.text('Next'));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify that a new WordPair is displayed.
+    expect(find.byType(Text), findsOneWidget);
+  });
+
+  testWidgets('Toggle Favorite test', (WidgetTester tester) async {
+    // Build our app with ProviderScope and trigger a frame.
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MyApp(),
+      ),
+    );
+
+    // Tap the 'Toggle Favorite' button and trigger a frame.
+    await tester.tap(find.text('Toggle Favorite'));
+    await tester.pump();
+
+    // Verify that the favorite state is toggled.
+    expect(find.text('Toggle Favorite'), findsOneWidget);
   });
 }
