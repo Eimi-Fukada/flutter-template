@@ -1,4 +1,16 @@
 pluginManagement {
+    // 添加插件镜像
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' } // 👈 关键！
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        // gradlePluginPortal()  // 👈 注释掉，避免走国外
+        google()
+        mavenCentral()
+        // google()
+        // mavenCentral()
+        // gradlePluginPortal()
+    }
     def flutterSdkPath = {
         def properties = new Properties()
         file("local.properties").withInputStream { properties.load(it) }
@@ -8,18 +20,12 @@ pluginManagement {
     }()
 
     includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
-
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
 }
 
 plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
-    id "com.android.application" version "8.1.0" apply false
-    id "org.jetbrains.kotlin.android" version "1.8.22" apply false
+    id "com.android.application" version "8.6.0" apply false
+    id "org.jetbrains.kotlin.android" version "2.1.0" apply false
 }
 
 include ":app"
