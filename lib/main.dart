@@ -25,28 +25,29 @@ class MyApp extends ConsumerWidget {
         colorScheme: const ColorScheme.dark(
           // 设置为纯黑色主题
           primary: Colors.black,
-          secondary: Colors.black,
-          surface: Colors.black,
-          onPrimary: Colors.white, // 文字颜色为白色
+          secondary: Colors.white,
+          surface: Colors.white,
+          onPrimary: Colors.black, // 文字颜色为白色
           onSecondary: Colors.white,
           onSurface: Colors.white,
         ),
       ),
       builder: (BuildContext context, Widget? child) {
-        return Scaffold(body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            if (constraints.maxWidth < minWidth ||
-                constraints.maxHeight < minHeight) {
-              return SizedBox(
-                width: minWidth,
-                height: minHeight,
-                child: child,
-              );
-            }
-            return child!;
-          },
-        ),
-        bottomNavigationBar: const MusicPlayerBar(),
+        return Scaffold(
+          body: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              if (constraints.maxWidth < minWidth ||
+                  constraints.maxHeight < minHeight) {
+                return SizedBox(
+                  width: minWidth,
+                  height: minHeight,
+                  child: child,
+                );
+              }
+              return child!;
+            },
+          ),
+          bottomNavigationBar: const MusicPlayerBar(),
         );
       },
     );

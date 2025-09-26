@@ -13,7 +13,7 @@ class MyHomePage extends ConsumerWidget {
           onPressed: () {
             context.push('/about');
           },
-          child: const Text('Go to About Page'),
+          child: const Text('Go to About Page11'),
         ),
       ),
     );
