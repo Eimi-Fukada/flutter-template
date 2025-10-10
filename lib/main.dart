@@ -1,55 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_template/router/router.dart';
-import 'package:flutter_template/components/music_player_bar/index.dart';
+import 'package:flutter_template/core/di/injector.dart';
+import 'package:flutter_template/core/theme/app_theme.dart';
+import 'package:flutter_template/core/utils/logger.dart';
 
-void main() {
-  runApp(
-    ProviderScope(
-      child: MyApp(),
-    ),
-  );
+void main() async {
+  // 确保初始化完成
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // 初始化依赖注入
+  await initDependencies();
+  
+  // 记录应用启动日志
+  // 修改:使用getIt获取Logger实例来调用info方法
+  getIt<Logger>().info('Application started');
+  
+  runApp(const MyApp());
 }
 
-class MyApp extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // 定义最小宽高
-    const double minWidth = 1052;
-    const double minHeight = 748;
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-    return MaterialApp.router(
-      routerConfig: router,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: const ColorScheme.dark(
-          // 设置为纯黑色主题
-          primary: Colors.black,
-          secondary: Colors.white,
-          surface: Colors.white,
-          onPrimary: Colors.black, // 文字颜色为白色
-          onSecondary: Colors.white,
-          onSurface: Colors.white,
-        ),
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: '网易云音乐',
+      theme: AppTheme.lightTheme(), // 使用浅色主题
+      darkTheme: AppTheme.darkTheme(), // 使用深色主题
+      themeMode: ThemeMode.system, // 跟随系统主题
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('网易云音乐'),
       ),
-      builder: (BuildContext context, Widget? child) {
-        return Scaffold(
-          body: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints constraints) {
-              if (constraints.maxWidth < minWidth ||
-                  constraints.maxHeight < minHeight) {
-                return SizedBox(
-                  width: minWidth,
-                  height: minHeight,
-                  child: child,
-                );
-              }
-              return child!;
-            },
-          ),
-          bottomNavigationBar: const MusicPlayerBar(),
-        );
-      },
+      body: const Center(
+        child: Text('欢迎使用网易云音乐'),
+      ),
     );
   }
 }

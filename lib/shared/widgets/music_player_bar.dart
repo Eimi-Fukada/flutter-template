@@ -31,7 +31,6 @@ class MusicPlayerBar extends StatelessWidget {
           ),
         ],
       ),
-      
     );
   }
 }
